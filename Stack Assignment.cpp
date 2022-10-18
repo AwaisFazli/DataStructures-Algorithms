@@ -258,6 +258,14 @@ int main()
     // VALIDATION OF EXPRESSION
 
     int error = 0;
+    for (int i = 1; i < exp_len; i++)
+    {
+        if (!isNonAlpha(expression[i]) && !isNonAlpha(expression[i - 1]))
+        {
+            error++;
+            break;
+        }
+    }
     for (int i = 0; i < exp_len; i++)
     {
 
