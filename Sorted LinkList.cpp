@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 using namespace std;
@@ -75,12 +74,44 @@ public:
         }
     }
 
+    void del()
+    {
+        int req;
+        cout << "Which Val to be deleted ";
+        cin >> req;
+        node *j = head;
+        node *i;
+        for (i = head; i != NULL; i = i->next)
+        {
+
+            if (req == head->val)
+            {
+                node *temp = head;
+                cout << temp->val << " Deleted" << endl;
+                head = head->next;
+                break;
+            }
+            else if (req == i->val)
+            {
+                j->next = i->next;
+                cout << req << " Deleted" << endl;
+                break;
+            }
+            else
+            {
+                cout << "Val not Found" << endl;
+            }
+            j = i;
+        }
+    }
+
     void show()
     {
         node *s = head;
-        for (node *s = head; s->next != NULL; s = s->next)
+        while (s != NULL)
         {
             cout << s->val << endl;
+            s = s->next;
         }
     }
 };
@@ -91,10 +122,7 @@ int main()
     l1.insert();
     l1.insert();
     l1.insert();
-    l1.insert();
-    l1.insert();
-    l1.insert();
-    l1.insert();
+    l1.del();
     l1.show();
 
     return 0;
