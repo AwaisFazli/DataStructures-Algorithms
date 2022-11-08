@@ -54,23 +54,95 @@ public:
         }
     }
 
-    void leftSuccessor()
+    int leftSuccessor()
     {
         node *temp;
         for (node *i = root->left; i != NULL; i = i->right)
         {
             temp = i;
         }
-        cout << temp->data << endl;
+        return temp->data;
     }
-    void rightSuccessor()
+
+    int rightSuccessor()
     {
         node *temp;
         for (node *i = root->right; i != NULL; i = i->left)
         {
             temp = i;
         }
-        cout << temp->data << endl;
+        return temp->data;
+    }
+
+    void deletion(int key)
+    {
+        node *temp = root;
+        node *prev = root;
+        int count = 0;
+        while (key != temp->data)
+        {
+            prev = temp;
+            if (key < temp->data)
+            {
+                temp = temp->left;
+            }
+            else
+            {
+                temp = temp->right;
+            }
+            count++;
+        }
+
+        // If Node to be deleted has no child (Leaf Node)
+        if (temp->left == NULL && temp->right == NULL)
+        {
+            if (prev->left->data == key)
+            {
+                prev->left = NULL;
+            }
+            else
+            {
+                prev->right = NULL;
+            }
+        }
+
+        // If Node to be deleted has only one child
+        else if (temp->left != NULL && temp->right == NULL)
+        {
+            if (prev->left->data == key)
+            {
+                prev->left = temp->left;
+            }
+            else
+            {
+                prev->right = temp->left;
+            }
+        }
+        else if (temp->left == NULL && temp->right != NULL)
+        {
+            if (prev->left->data == key)
+            {
+                prev->left = temp->right;
+            }
+            else
+            {
+                prev->right = temp->right;
+            }
+        }
+
+        // If Node to be deleted has two children
+        else
+        {
+            node *temp2;
+            node *prev2;
+            for (node *l = temp->left; l != NULL; l = l->right)
+            {
+                prev2 = temp2;
+                temp2 = l;
+            }
+            temp->data = temp2->data;
+            prev2->right = NULL;
+        }
     }
 };
 
@@ -81,19 +153,23 @@ int main()
     b1.insert(3);
     b1.insert(2);
     b1.insert(4);
-    b1.insert(7);
+    b1.insert(9);
     b1.insert(6);
     b1.insert(8);
-
-    b1.leftSuccessor();
-    b1.rightSuccessor();
+    b1.insert(7);
+    b1.insert(12);
+    b1.deletion(9);
+    cout << b1.leftSuccessor() << endl;
+    cout << b1.rightSuccessor() << endl;
 
     /* Tree Structure
            5
          /   \
-        3    7
-      /  \  / \
-     2   4 6   8  */
+        3     9
+      /  \   / \
+     2   4  7   12
+           / \
+          6   8      */
 
     return 0;
 }
