@@ -78,7 +78,6 @@ public:
     {
         node *temp = root;
         node *prev = root;
-        int count = 0;
         while (key != temp->data)
         {
             prev = temp;
@@ -90,7 +89,12 @@ public:
             {
                 temp = temp->right;
             }
-            count++;
+
+            if (temp->left == NULL && temp->right == NULL && temp->data != key)
+            {
+                cout << key << " Key Not Found" << endl;
+                break;
+            }
         }
 
         // If Node to be deleted has no child (Leaf Node)
@@ -133,15 +137,20 @@ public:
         // If Node to be deleted has two children
         else
         {
-            node *temp2;
             node *prev2;
             for (node *l = temp->left; l != NULL; l = l->right)
             {
-                prev2 = temp2;
-                temp2 = l;
+                prev2 = l;
+                temp->data = l->data;
             }
-            temp->data = temp2->data;
-            prev2->right = NULL;
+            if (prev2->left->data == temp->data)
+            {
+                prev2->left = NULL;
+            }
+            else
+            {
+                prev2->right = NULL;
+            }
         }
     }
 };
@@ -159,6 +168,8 @@ int main()
     b1.insert(7);
     b1.insert(12);
     b1.deletion(9);
+    b1.deletion(6);
+    b1.deletion(7);
     cout << b1.leftSuccessor() << endl;
     cout << b1.rightSuccessor() << endl;
 
@@ -173,3 +184,8 @@ int main()
 
     return 0;
 }
+
+// v1.0 = Created Tree and added Insertion Function
+// v1.2 = Added Functions to find Successors
+// v2.0 = Added Function to delete a member
+// v2.1 = Fixed Some Bugs in Delete Function
