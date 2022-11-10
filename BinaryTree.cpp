@@ -137,15 +137,20 @@ public:
         // If Node to be deleted has two children
         else
         {
+            int count = 0;
+            node *temp2;
             node *prev2;
             for (node *l = temp->left; l != NULL; l = l->right)
             {
-                prev2 = l;
-                temp->data = l->data;
+                prev2 = temp2;
+                temp2 = l;
+
+                count++;
             }
-            if (prev2->left->data == temp->data)
+            temp->data = temp2->data;
+            if (count <= 1)
             {
-                prev2->left = NULL;
+                temp->left = NULL;
             }
             else
             {
@@ -162,22 +167,26 @@ int main()
     b1.insert(3);
     b1.insert(2);
     b1.insert(4);
-    b1.insert(9);
-    b1.insert(6);
+    b1.insert(10);
     b1.insert(8);
+    b1.insert(6);
+    b1.insert(9);
     b1.insert(12);
+    b1.deletion(8);
     b1.deletion(6);
+    b1.deletion(10);
+
     cout << b1.leftSuccessor() << endl;
     cout << b1.rightSuccessor() << endl;
 
     /* Tree Structure
            5
          /   \
-        3     9
+        3     10
       /  \   / \
-     2   4  6   12
-             \
-              8      
+     2   4  8   12
+           / \
+          6   9
                  */
 
     return 0;
