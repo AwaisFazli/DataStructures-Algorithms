@@ -165,11 +165,8 @@ int main()
     b1.insert(9);
     b1.insert(6);
     b1.insert(8);
-    b1.insert(7);
     b1.insert(12);
-    b1.deletion(9);
     b1.deletion(6);
-    b1.deletion(7);
     cout << b1.leftSuccessor() << endl;
     cout << b1.rightSuccessor() << endl;
 
@@ -178,9 +175,10 @@ int main()
          /   \
         3     9
       /  \   / \
-     2   4  7   12
-           / \
-          6   8      */
+     2   4  6   12
+             \
+              8      
+                 */
 
     return 0;
 }
